@@ -76,8 +76,14 @@ public static GripPipeline pipe = new GripPipeline();
 	 */
 	@Override
 	public void robotInit() {
+
+    // THIS IS A TEST
+    
    
 
+     
+
+    //VISION AQUISITION
     topCamera = CameraServer.getInstance().startAutomaticCapture(0);
     intakeCamera = CameraServer.getInstance().startAutomaticCapture(1);
     cameraServer = CameraServer.getInstance().getServer();
@@ -92,9 +98,11 @@ public static GripPipeline pipe = new GripPipeline();
     intakeCamera.setExposureManual(20);
     intakeCamera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     topCamera.setFPS(60);
-		topCamera.setResolution(360, 360);
+    topCamera.setResolution(360, 360);
     
-	
+    
+   // VISION CODE PROCESSING
+
     visionThread = new VisionThread(intakeCamera, new GripPipeline(), pipeline -> {
 			if (pipeline.filterContoursOutput().size()>=2) {
 				Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
@@ -117,15 +125,18 @@ public static GripPipeline pipe = new GripPipeline();
 				 outputStream.putFrame(output);
 			}
 		});
-		visionThread.start();
-  
+    visionThread.start();
+    
+  //THIS IS WHERE LIFT CODE IS
     refOI.clickedY.whileHeld(new PullyCommand("raise"));
     refOI.clickedA.whileHeld(new PullyCommand("lower"));
+    
+    
+    // light code ++ SOLENOID
     if(refOI.clickedB)
     {robotMap.Cam.set(true);} 
     else{robotMap.Cam.set(false);}
-   
-    RobotMap.robotDriveMain = new DifferentialDrive(RobotMap.m_left, RobotMap.m_right);
+
     if (refOI.NoidIn){
       robotMap.exampleDouble.set(Value.kForward);
    }
@@ -137,6 +148,10 @@ public static GripPipeline pipe = new GripPipeline();
     robotMap.exampleDouble.set(Value.kOff);
    }
 
+
+    // DRIVE MAP
+    RobotMap.robotDriveMain = new DifferentialDrive(RobotMap.m_left, RobotMap.m_right);
+   
 
 
 		}
@@ -188,9 +203,14 @@ public static GripPipeline pipe = new GripPipeline();
 double turn = centerX - (IMG_WIDTH / 2);
 
 System.out.println(turn);
+double sideTilt = RobotMap.accelerometer.getX();
+double frontTilt = RobotMap.accelerometer.getY();
     if (refOI.clickedX && refOI.clickedB)
-    {RobotMap.robotDriveMain.curvatureDrive(0.3, turn * 0.008,true);}
-      else
+    {RobotMap.robotDriveMain.curvatureDrive(0.3, turn * 0.008,true);} 
+    else if (frontTilt >  2.0) 
+    {new PullyCommand("lower");
+     RobotMap.robotDriveMain.curvatureDrive(frontTilt*0.4,0,true);}  
+    else
 			driveTrainCommand.start();
 		
 	}
@@ -200,6 +220,10 @@ System.out.println(turn);
 	 */
 	@Override
 	public void teleopPeriodic() {
+   
+
+
+    //this is a test of robot capabilities 
   robotMap.c.setClosedLoopControl(true);
     if (refOI.clickedB){
 			SmartDashboard.putString("Info", "Setting Intake Camera");
