@@ -1,4 +1,12 @@
 # Leon Robotics GitHub
+## This program failed to work. current status 8/20/19 incomplete
+
+
+
+
+
+
+
 
 We're a homemade, nonprofit FIRST Robotics Competition team from Leon High School in Tallahassee, Florida. Our team is made up of high 
 school age members, adult mentors, and an array of amazing sponsors. Primarily, our organization's goal is to cultivate members' 
@@ -8,7 +16,7 @@ their ideas and creativity into the field of STEM. We want to help build the vis
 This GitHub is designed to display our seasonal code and display it to the public and anyone who is interested. Along with any other
 experimental personal projects, such as making a robot follow at a distance based solely on vision feedback. 
 
-My name is Nick I run the programming team at Leon robotics, if anyone has general questions or is interested in joining our team, feel free to contact me. I am available any time. (send me an email to the email below and ask for Nick)
+My name is Nick I ran the programming team at Leon robotics, if anyone has general questions or is interested in joining our team, feel free to contact the email below.
 
 if there are any requests for something that isn’t available on the GitHub send it to Leonroboticsteam@gmail.com.
 Thank you!
